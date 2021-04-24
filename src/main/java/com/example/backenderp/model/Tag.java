@@ -38,6 +38,8 @@ public class Tag {
     //CONSTRUCTOR
 
     public Tag() {
+        this.updateAt = Instant.now();
+        this.createdAt = Instant.now();
     }
 
     public Tag(String nombre) {
