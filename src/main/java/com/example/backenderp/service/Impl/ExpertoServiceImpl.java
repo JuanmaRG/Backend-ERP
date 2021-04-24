@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -43,6 +44,7 @@ public class ExpertoServiceImpl implements ExpertoService {
     public Experto updateExperto(Experto experto) {
         log.info("SERVICE updateExpert");
         if(repository.existsById(experto.getId())){
+            experto.setUpdated_at(Instant.now());
             return repository.save(experto);
         }
         return null;
@@ -50,6 +52,7 @@ public class ExpertoServiceImpl implements ExpertoService {
 
     @Override
     public ResponseEntity<Void> deleteExpertoById(Long id) {
+        log.info("SERVICE deleteExpertoById");
         if (repository.existsById(id)) {
             this.repository.deleteById(id);
             return ResponseEntity.ok().build();

@@ -76,6 +76,7 @@ public class Experto {
 
     // CONSTRUCTOR
     public Experto() {
+        this.created_at=Instant.now();
     }
 
     public Experto(String nombre, Instant created_at, Instant updated_at, Long idEstado, Long idDisponibilidad, String modalidad, String autonomo, String contacto_telefono, String contacto_email, String contacto_ciudad, String contacto_linkedin) {
