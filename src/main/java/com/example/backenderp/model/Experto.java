@@ -2,13 +2,15 @@ package com.example.backenderp.model;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="EXPERTO")
 public class Experto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_EXPERTO")
+    @Column(name = "id_experto")
     private Long id;
 
     private String nombre;
@@ -49,6 +51,10 @@ public class Experto {
     @ManyToOne
     @JoinColumn(name ="id_disponibilidad", insertable = false, updatable = false)
     private Disponibilidad disponibilidad;
+
+
+    @OneToMany(mappedBy = "etiqueta")
+    private List<ExpertoTag> etiquetas = new ArrayList<>();
 
     // CONSTRUCTOR
 
