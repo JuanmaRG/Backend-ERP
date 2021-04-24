@@ -7,8 +7,12 @@ import javax.persistence.*;
 public class Credenciales {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID_CREDENCIAL")
+    @Column(name="id_credencial")
     private Long id;
+
+    // Foreign Key
+    @Column(name="id_experto")
+    private Long idExperto;
 
     @Column(name="correo")
     private String credencial_correo;
@@ -21,6 +25,11 @@ public class Credenciales {
 
     @Column(name="zoom_password")
     private String credencial_zoom_password;
+
+    //RELATIONS
+    @OneToOne
+    @JoinColumn(name = "id_experto",  insertable = false, updatable = false)
+    private Experto experto;
 
     //CONSTRUCTOR
     public Credenciales() {

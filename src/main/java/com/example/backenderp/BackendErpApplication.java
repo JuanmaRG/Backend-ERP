@@ -1,17 +1,17 @@
 package com.example.backenderp;
 
-import com.example.backenderp.model.Disponibilidad;
-import com.example.backenderp.model.Estado;
-import com.example.backenderp.model.Experto;
+import com.example.backenderp.model.*;
 import com.example.backenderp.repository.DisponibilidadRepository;
 import com.example.backenderp.repository.EstadoRepository;
 import com.example.backenderp.repository.ExpertoRepository;
-import com.example.backenderp.service.DisponibilidadService;
+import com.example.backenderp.repository.TagRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class BackendErpApplication implements CommandLineRunner {
@@ -19,11 +19,13 @@ public class BackendErpApplication implements CommandLineRunner {
     final ExpertoRepository expertoRepository;
     final EstadoRepository estadoRepository;
     final DisponibilidadRepository disponibilidadRepository;
+    final TagRepository tagRepository;
 
-    public BackendErpApplication(ExpertoRepository expertoRepository, EstadoRepository estadoRepository, DisponibilidadRepository disponibilidadRepository) {
+    public BackendErpApplication(ExpertoRepository expertoRepository, EstadoRepository estadoRepository, DisponibilidadRepository disponibilidadRepository, TagRepository tagRepository) {
         this.expertoRepository = expertoRepository;
         this.estadoRepository = estadoRepository;
         this.disponibilidadRepository = disponibilidadRepository;
+        this.tagRepository = tagRepository;
     }
 
 
@@ -50,7 +52,23 @@ public class BackendErpApplication implements CommandLineRunner {
         disponibilidadRepository.save(disponibilidad3);
         disponibilidadRepository.save(disponibilidad4);
 
+        Tag tag1 = new Tag("Docker");
+        Tag tag2 = new Tag("IA");
+        tagRepository.save(tag1);
+        tagRepository.save(tag2);
+
+
         Experto experto1 = new Experto("Juan Manuel", Instant.now(),Instant.now(),estado1.getId(),disponibilidad3.getId(),"desconocido","SI","952254785", "juanma@gmail.com","Malaga","Juan Manuel Ruiz Gil");
+        List<Tag> tagExpert = new ArrayList<>();
+        expertoRepository.save(experto1);
+        experto1.setIdDisponibilidad(2L);
+        expertoRepository.save(experto1);
+
+        tagExpert.add(tag1);
+        tagExpert.add(tag2);
+        experto1.setTagList(tagExpert);
+        tag1.getExpertoList().add(experto1);
+        tagRepository.save(tag1);
         expertoRepository.save(experto1);
 
     }

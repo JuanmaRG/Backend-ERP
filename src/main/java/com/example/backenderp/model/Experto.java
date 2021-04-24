@@ -1,5 +1,7 @@
 package com.example.backenderp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -52,13 +54,27 @@ public class Experto {
     @JoinColumn(name ="id_disponibilidad", insertable = false, updatable = false)
     private Disponibilidad disponibilidad;
 
-
+    /*
     @OneToMany(mappedBy = "etiqueta")
     private List<ExpertoTag> etiquetas = new ArrayList<>();
+    */
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "expert_tag",
+            joinColumns = {@JoinColumn(name = "expert_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+    )
+    @JsonIgnoreProperties("expertoList")
+    private List<Tag> tagList= new ArrayList<>();
+
+    @OneToOne(mappedBy = "experto")
+    private Credenciales credenciales;
+
+    @OneToOne(mappedBy = "experto")
+    private Fichero fichero;
 
     // CONSTRUCTOR
-
-
     public Experto() {
     }
 
@@ -202,6 +218,43 @@ public class Experto {
 
     public Experto setContacto_linkedin(String contacto_linkedin) {
         this.contacto_linkedin = contacto_linkedin;
+        return this;
+    }
+
+    public Long getIdEstado() {
+        return idEstado;
+    }
+
+    public Experto setIdEstado(Long idEstado) {
+        this.idEstado = idEstado;
+        return this;
+    }
+
+
+    public Credenciales getCredenciales() {
+        return credenciales;
+    }
+
+    public Experto setCredenciales(Credenciales credenciales) {
+        this.credenciales = credenciales;
+        return this;
+    }
+
+    public Fichero getFichero() {
+        return fichero;
+    }
+
+    public Experto setFichero(Fichero fichero) {
+        this.fichero = fichero;
+        return this;
+    }
+
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public Experto setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
         return this;
     }
 

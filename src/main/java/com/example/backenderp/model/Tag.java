@@ -1,9 +1,9 @@
 package com.example.backenderp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javassist.expr.NewArray;
 
 import javax.persistence.*;
-import java.beans.Expression;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +24,25 @@ public class Tag {
     @Column(name="updated_at")
     private Instant updateAt;
 
-
+    /*
     //RELATIONS
     @OneToMany(mappedBy = "experto")
     private List<ExpertoTag> expertosList = new ArrayList<>();
+    */
+
+    @ManyToMany(mappedBy = "tagList", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("tagList")
+    private List<Experto> expertoList = new ArrayList<>();
+
+
     //CONSTRUCTOR
 
     public Tag() {
     }
 
-    public Tag(String nombre, Instant updateAt) {
+    public Tag(String nombre) {
         this.nombre = nombre;
-        this.updateAt = updateAt;
+        this.updateAt = Instant.now();
         this.createdAt = Instant.now();
     }
 
@@ -74,6 +81,15 @@ public class Tag {
 
     public Tag setUpdateAt(Instant updateAt) {
         this.updateAt = updateAt;
+        return this;
+    }
+
+    public List<Experto> getExpertoList() {
+        return expertoList;
+    }
+
+    public Tag setExpertoList(List<Experto> expertoList) {
+        this.expertoList = expertoList;
         return this;
     }
 

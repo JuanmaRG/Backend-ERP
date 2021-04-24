@@ -5,6 +5,7 @@ import com.example.backenderp.repository.ExpertoRepository;
 import com.example.backenderp.service.ExpertoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,7 +22,7 @@ public class ExpertoServiceImpl implements ExpertoService {
 
     @Override
     public Optional<Experto> findOneById(Long id) {
-        log.info("findOneExpertById");
+        log.info("Service findOneExpertById");
         if (repository.existsById(id)) {
             Optional<Experto> expertoRetrieved = repository.findById(id);
             if (!expertoRetrieved.isPresent())
@@ -30,5 +31,29 @@ public class ExpertoServiceImpl implements ExpertoService {
         }
         return Optional.empty();
 
+    }
+
+    @Override
+    public Experto createExperto(Experto experto) {
+        log.info("SERVICE createExperto");
+        return repository.save(experto);
+    }
+
+    @Override
+    public Experto updateExperto(Experto experto) {
+        log.info("SERVICE updateExpert");
+        if(repository.existsById(experto.getId())){
+            return repository.save(experto);
+        }
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteExpertoById(Long id) {
+        if (repository.existsById(id)) {
+            this.repository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
