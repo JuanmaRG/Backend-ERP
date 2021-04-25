@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -91,11 +92,27 @@ public class TagController {
     }
 
     @GetMapping("/etiquetas")
-    public ResponseEntity<Page<Tag>> findAllWithFilterNombre(TagPage tagPage, TagSearchCriteria tagSearchCriteria){
+    public ResponseEntity<Page<Tag>> findAllWithFilterNombre( @RequestParam(name="nombre", required = false) String nombre,
+                                                              @RequestParam(name="limite",required = false) Integer limite,
+                                                              @RequestParam(name="pagina",required = false) Integer pagina){
         log.debug("ENDPOINT Devuelve todas las etiquetas");
 
+        TagPage tagPage = new TagPage();
+        TagSearchCriteria tagSearchCriteria = new TagSearchCriteria();
 
-        tagSearchCriteria.setName("Oracle");
+
+        if(Objects.nonNull(nombre))
+            tagSearchCriteria.setName(nombre);
+
+
+        if(Objects.nonNull(limite))
+            tagPage.setPageSize(limite);
+
+        if(Objects.nonNull(pagina))
+            tagPage.setPageNumber(pagina);
+
+
         return new ResponseEntity<>(tagService.findAllWithFilterNombre(tagPage,tagSearchCriteria), HttpStatus.OK);
     }
+
 }

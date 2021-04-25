@@ -4,6 +4,9 @@ public class TagSearchCriteria {
 
     private String name;
 
+    public TagSearchCriteria() {
+    }
+
     public String getName() {
         return name;
     }

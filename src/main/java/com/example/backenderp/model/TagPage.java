@@ -8,6 +8,9 @@ public class TagPage {
     private Sort.Direction sortDirection = Sort.Direction.ASC;
     private String sortBy = "nombre";
 
+    public TagPage() {
+    }
+
     //GETTER AND SETTER
 
     public int getPageNumber() {
