@@ -2,15 +2,17 @@ package com.example.backenderp.controller;
 
 
 import com.example.backenderp.model.Tag;
+import com.example.backenderp.model.TagPage;
+import com.example.backenderp.model.TagSearchCriteria;
 import com.example.backenderp.service.TagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.spring.web.readers.operation.ResponseMessagesReader;
 
-import java.util.List;
+
 import java.util.Optional;
 
 @RestController
@@ -51,7 +53,7 @@ public class TagController {
      */
     @PostMapping("/etiquetas")
     public ResponseEntity<Tag> createTag(@RequestBody Tag tag){
-        log.debug("ENDPOINT createTag");
+        log.debug("ENDPOINT Crea una etiqueta\n");
 
         if(tag.getId() == null){
             Tag tagCreated = this.tagService.createTag(tag);
@@ -65,7 +67,7 @@ public class TagController {
      */
     @DeleteMapping("/etiquetas/{id}")
     public ResponseEntity<Void> deleteTagById(@PathVariable Long id){
-        log.debug("ENDPOINT deleteTagById");
+        log.debug("ENDPOINT Borra la Etiqueta con ID = id");
         if(id != null){
             return this.tagService.deleteTagById(id);
         }
@@ -74,7 +76,7 @@ public class TagController {
 
     @PutMapping("/etiquetas")
     public ResponseEntity<Tag> updateTagById(@RequestBody Tag tag){
-        log.debug("ENDPOINT updateTagByID");
+        log.debug("ENDPOINT DActualiza la Etiqueta con ID = id");
 
 
         if (tag.getId() == null) {
@@ -86,5 +88,14 @@ public class TagController {
             return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok().body(tagReceived );
+    }
+
+    @GetMapping("/etiquetas")
+    public ResponseEntity<Page<Tag>> findAllWithFilterNombre(TagPage tagPage, TagSearchCriteria tagSearchCriteria){
+        log.debug("ENDPOINT Devuelve todas las etiquetas");
+
+
+        tagSearchCriteria.setName("Oracle");
+        return new ResponseEntity<>(tagService.findAllWithFilterNombre(tagPage,tagSearchCriteria), HttpStatus.OK);
     }
 }
