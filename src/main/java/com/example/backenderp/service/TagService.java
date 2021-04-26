@@ -1,8 +1,6 @@
 package com.example.backenderp.service;
 
-import com.example.backenderp.model.Tag;
-import com.example.backenderp.model.TagPage;
-import com.example.backenderp.model.TagSearchCriteria;
+import com.example.backenderp.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
@@ -15,4 +13,5 @@ public interface TagService {
     Tag updateTag(Tag tag);
     ResponseEntity<Void> deleteTagById(Long id);
     Page<Tag> findAllWithFilterNombre(TagPage tagPage, TagSearchCriteria tagSearchCriteria);
+
 }

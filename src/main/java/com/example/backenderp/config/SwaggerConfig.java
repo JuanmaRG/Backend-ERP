@@ -17,12 +17,12 @@ public class SwaggerConfig {
     public Docket swaggerConfiguration(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(""))
+                .apis(RequestHandlerSelectors.basePackage("package com.example.backenderp.controller;"))
                 .build().apiInfo(apiDetails());
     }
 
     private ApiInfo apiDetails() {
-        return new ApiInfo("AWESOME API",
+        return new ApiInfo("Backend - Proyecto Final Curso Java",
                 "This is the documentation of Juanma`s practise 4 project",
                 "1.0",
                 "",

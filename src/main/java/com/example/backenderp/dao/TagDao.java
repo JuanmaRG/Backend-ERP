@@ -7,4 +7,5 @@ import org.springframework.data.domain.Page;
 
 public interface TagDao {
     public Page<Tag> findAllWithFilterNombre(TagPage tagPage, TagSearchCriteria tagSearchCriteria);
+
 }
