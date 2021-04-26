@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-//@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class ExpertoController {
 
     private final Logger log = LoggerFactory.getLogger(Experto.class);
