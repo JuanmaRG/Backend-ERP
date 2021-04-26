@@ -2,10 +2,7 @@ package com.example.backenderp.dao.Impl;
 
 import com.example.backenderp.dao.ExpertoDao;
 
-import com.example.backenderp.model.Experto;
-import com.example.backenderp.model.ExpertoPage;
-import com.example.backenderp.model.ExpertoSearchCriteria;
-import com.example.backenderp.model.Tag;
+import com.example.backenderp.model.*;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
@@ -24,6 +21,18 @@ public class ExpertoDaoImpl implements ExpertoDao {
     public ExpertoDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
         this.criteriaBuilder = entityManager.getCriteriaBuilder();
+    }
+
+    public Page<Experto> findAllWithFilterEstado(ExpertoPage expertoPage, ExpertoSearchCriteria expertoSearchCriteria, Estado estado) {
+
+        System.out.println( "////////////////////////////////////////" + expertoSearchCriteria.getIdEstado() + "////////////////////////////////////////");
+        List<Experto> expertList= entityManager.createQuery("select e from Experto e where e.estado.id = "+expertoSearchCriteria.getIdEstado()).getResultList();
+        Pageable paging = PageRequest.of(expertoPage.getPageNumber(), expertoPage.getPageSize());
+        int start = Math.min((int)paging.getOffset(), expertList.size());
+        int end = Math.min((start + paging.getPageSize()), expertList.size());
+        Page<Experto> page = new PageImpl<>(expertList.subList(start, end), paging, expertList.size());
+        return page;
+
     }
 
     public Page<Experto> findAllWithFilterTag(ExpertoPage expertoPage, ExpertoSearchCriteria expertoSearchCriteria, Tag tag) {
@@ -73,7 +82,7 @@ public class ExpertoDaoImpl implements ExpertoDao {
         }
         if (Objects.nonNull(expertoSearchCriteria.getIdEtiqueta())) {
             predicates.add(
-                    criteriaBuilder.like(expertoRoot.get("tag_id"), expertoSearchCriteria.getIdEtiqueta().toString())
+                    criteriaBuilder.like(expertoRoot.get("idEstado"), "%"+expertoSearchCriteria.getIdEstado()+"%")
             );
         }
 

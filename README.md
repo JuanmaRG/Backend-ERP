@@ -12,7 +12,7 @@ El backend va a atender a los siguientes ENDPOINT:
   - [x] Filtro:  página
   - [x] Filtro:  nombre
   - [x] Filtro:  etiqueta
-  - [ ] Filtro:  modalidad
+  - [x] Filtro:  modalidad
   - [ ] Filtro:  estado
 - [x] API/expertos/:id  GET     Devuelve el Experto con ID = id
 - [x] API/expertos      POST    Crea un experto
