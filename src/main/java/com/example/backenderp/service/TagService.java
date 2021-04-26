@@ -16,5 +16,4 @@ public interface TagService {
     ResponseEntity<Void> deleteTagById(Long id);
     Page<Tag> findAllWithFilterNombre(TagPage tagPage, TagSearchCriteria tagSearchCriteria);
 
-    ResponseEntity<Void> deleteTagById(Long id);
 }

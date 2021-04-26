@@ -25,7 +25,7 @@ public class TagServiceImpl implements TagService {
     private final TagRepository repository;
     private final TagDao tagDao;
 
-    public TagServiceImpl(TagRepository repository) {
+    public TagServiceImpl(TagRepository repository, TagDao tagDao) {
         this.repository = repository;
         this.tagDao = tagDao;
     }
