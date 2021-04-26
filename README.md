@@ -18,6 +18,7 @@ El backend va a atender a los siguientes ENDPOINT:
 - [x] API/expertos      POST    Crea un experto
 - [x] API/expertos/:id  PUT     Actualiza el Experto con ID = id
 - [x] API/expertos/:id  DEL     Borra el Experto con ID = id 
+
 ####ENDPOINTS para API/etiquetas
 - [x] API/etiquetas     GET     Devuelve todas las etiquetas
     - [x] Filtro: limite
