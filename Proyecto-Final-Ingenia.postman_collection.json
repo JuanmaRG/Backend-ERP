@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "711b8e6e-b4ea-4255-b98e-6bab038f9391",
+		"name": "Proyecto-Final-Ingenia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Devuelve el Experto con ID = 1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/expertos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"expertos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea un experto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Vicente\",\r\n    \"idEstado\": 2,\r\n    \"idDisponibilidad\": 3,\r\n    \"modalidad\": \"Presencial\",\r\n    \"autonomo\": \"SI\",\r\n    \"contacto_telefono\": \"952254785\",\r\n    \"contacto_email\": \"vicente@gmail.com\",\r\n    \"contacto_ciudad\": \"Malaga\",\r\n    \"contacto_linkedin\": \"Vicente\",\r\n    \"credenciales\": null,\r\n    \"fichero\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/expertos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"expertos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualiza el Experto con ID = id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"nombre\": \"Juan Manuel Ruiz Gil\",\r\n \r\n    \"updated_at\": \"2021-04-24T15:33:31Z\",\r\n    \"idEstado\": 1,\r\n    \"idDisponibilidad\": 2,\r\n    \"modalidad\": \"desconocido\",\r\n    \"autonomo\": \"SI\",\r\n    \"contacto_telefono\": \"952254785\",\r\n    \"contacto_email\": \"juanma@gmail.com\",\r\n    \"contacto_ciudad\": \"Malaga\",\r\n    \"contacto_linkedin\": \"Juan Manuel Ruiz Gil\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/expertos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"expertos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borra el Experto con ID = id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api/expertos/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"expertos",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devuelve la etiqueta con ID = id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api/etiquetas/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"etiquetas",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea una etiqueta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n  \"nombre\": \"DevOps\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/etiquetas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"etiquetas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualiza la Etiqueta con ID = id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Borra la Etiqueta con ID = id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api/etiquetas/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"etiquetas",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uipdate tag",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api/etiquetas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"etiquetas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devuelve todas las etiquetas  con nombre Oracle",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api/etiquetas?nombre=Oracle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"etiquetas"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "Oracle"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devuelve todos los expertos usando el filtro por nombre",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api/expertos?nombre=J",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"expertos"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "J"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

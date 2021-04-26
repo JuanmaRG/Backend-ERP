@@ -54,11 +54,18 @@ public class BackendErpApplication implements CommandLineRunner {
 
         Tag tag1 = new Tag("Docker");
         Tag tag2 = new Tag("IA");
+        Tag tag3 = new Tag("Oracle Cloud Infraestructure");
+        Tag tag4 = new Tag("Oracle PLSQL");
+        Tag tag5 = new Tag("Oracle SQL Database");
+        Tag tag6 = new Tag("Oracle Fusion Midleware");
         tagRepository.save(tag1);
         tagRepository.save(tag2);
+        tagRepository.save(tag4);
+        tagRepository.save(tag5);
+        tagRepository.save(tag6);
 
 
-        Experto experto1 = new Experto("Juan Manuel", Instant.now(),Instant.now(),estado1.getId(),disponibilidad3.getId(),"desconocido","SI","952254785", "juanma@gmail.com","Malaga","Juan Manuel Ruiz Gil");
+        Experto experto1 = new Experto("Juan Manuel", Instant.now(),Instant.now(),estado1.getId(),disponibilidad3.getId(),"Remoto","SI","952254785", "juanma@gmail.com","Malaga","Juan Manuel Ruiz Gil");
         List<Tag> tagExpert = new ArrayList<>();
         expertoRepository.save(experto1);
         experto1.setIdDisponibilidad(2L);

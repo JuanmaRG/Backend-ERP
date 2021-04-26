@@ -1,11 +1,16 @@
 package com.example.backenderp.service.Impl;
 
+import com.example.backenderp.dao.TagDao;
 import com.example.backenderp.model.Tag;
+import com.example.backenderp.model.TagPage;
+import com.example.backenderp.model.TagSearchCriteria;
 import com.example.backenderp.repository.TagRepository;
 import com.example.backenderp.service.TagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -18,9 +23,11 @@ public class TagServiceImpl implements TagService {
     private final Logger log = LoggerFactory.getLogger(TagServiceImpl.class);
 
     private final TagRepository repository;
+    private final TagDao tagDao;
 
     public TagServiceImpl(TagRepository repository) {
         this.repository = repository;
+        this.tagDao = tagDao;
     }
 
     @Override
@@ -68,4 +75,8 @@ public class TagServiceImpl implements TagService {
         return ResponseEntity.notFound().build();
     }
 
+    public Page<Tag> findAllWithFilterNombre(TagPage tagPage,
+                                             TagSearchCriteria tagSearchCriteria){
+        return this.tagDao.findAllWithFilterNombre(tagPage,tagSearchCriteria);
+    }
 }
