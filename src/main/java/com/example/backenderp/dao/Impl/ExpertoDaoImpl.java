@@ -45,10 +45,9 @@ public class ExpertoDaoImpl implements ExpertoDao {
 
         CriteriaQuery<Experto> criteriaQuery = criteriaBuilder.createQuery(Experto.class);
         Root<Experto> expertoRoot = criteriaQuery.from(Experto.class);
-        expertoRoot.join("expert_tag", JoinType.INNER);
+        expertoRoot.join("expert_tag",JoinType.INNER);
         criteriaQuery.select(expertoRoot);
         Predicate predicate = getPredicate(expertoSearchCriteria, expertoRoot);
-
         criteriaQuery.where(predicate);
         setOrder(expertoPage,criteriaQuery , expertoRoot);
         TypedQuery<Experto> typedQuery = entityManager.createQuery(criteriaQuery);
