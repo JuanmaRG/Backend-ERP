@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-//@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class ExpertoController {
 
     private final Logger log = LoggerFactory.getLogger(Experto.class);
@@ -130,7 +129,7 @@ public class ExpertoController {
     public ResponseEntity<Page<Experto>> findAllWithFilter(@RequestParam(name="nombre", required = false) String nombre,
                                                            @RequestParam(name="limite",required = false) Integer limite,
                                                            @RequestParam(name="pagina",required = false) Integer pagina,
-                                                           @RequestParam(name="idestado" ,required = false) Long estado,
+                                                           @RequestParam(name="estado" ,required = false) Long estado,
                                                            @RequestParam(name="etiqueta", required=false) Long etiqueta){
 
         log.debug("ENDPOINT: Devuelve todos los expertos filtrandolos");
@@ -152,15 +151,11 @@ public class ExpertoController {
         if(Objects.nonNull(etiqueta)){
             expertoSearchCriteria.setIdEtiqueta(etiqueta);
             return new ResponseEntity<>(expertoService.findAllWithFilterTag(expertoPage,expertoSearchCriteria,new Tag()),HttpStatus.OK);
-            /*
-            switch (estado){
-                case "Verificado": expertoSearchCriteria.setIdEstado(1);
-                                break;
-                case "Pendiente": expertoSearchCriteria.setIdEstado(2);
-                                break;
-                default: expertoSearchCriteria.setIdEstado(3);
-                                break;
-            }*/
+            }
+        if(Objects.nonNull(estado)){
+            expertoSearchCriteria.setIdEstado(estado);
+            return new ResponseEntity<>(expertoService.findAllWithFilterEstado(expertoPage,expertoSearchCriteria, new Estado()),HttpStatus.OK);
+
         }
 
         return new ResponseEntity<>(expertoService.findAllWithFilter(expertoPage,expertoSearchCriteria),HttpStatus.OK);

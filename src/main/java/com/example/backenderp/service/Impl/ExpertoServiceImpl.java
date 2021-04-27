@@ -1,10 +1,7 @@
 package com.example.backenderp.service.Impl;
 
 import com.example.backenderp.dao.ExpertoDao;
-import com.example.backenderp.model.Experto;
-import com.example.backenderp.model.ExpertoPage;
-import com.example.backenderp.model.ExpertoSearchCriteria;
-import com.example.backenderp.model.Tag;
+import com.example.backenderp.model.*;
 import com.example.backenderp.repository.ExpertoRepository;
 import com.example.backenderp.service.ExpertoService;
 import org.slf4j.Logger;
@@ -78,4 +75,12 @@ public class ExpertoServiceImpl implements ExpertoService {
         log.info("SERVICE findAllWithFilterTag");
         return this.expertoDao.findAllWithFilterTag(expertoPage,expertoSearchCriteria,tag);
     }
+
+    @Override
+    public Page<Experto> findAllWithFilterEstado(ExpertoPage expertoPage, ExpertoSearchCriteria expertoSearchCriteria, Estado estado) {
+        log.info("SERVICE findAllWithFilterEstado");
+        return this.expertoDao.findAllWithFilterEstado(expertoPage,expertoSearchCriteria,estado);
+    }
+
+
 }

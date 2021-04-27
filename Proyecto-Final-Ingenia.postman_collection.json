@@ -198,7 +198,7 @@
 			"response": []
 		},
 		{
-			"name": "uipdate tag",
+			"name": "update tag",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -218,17 +218,18 @@
 			"response": []
 		},
 		{
-			"name": "Devuelve todas las etiquetas  con nombre Oracle",
+			"name": "Devuelve todas las etiquetas  con nombre:  Oracle",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8888/api/etiquetas?nombre=Oracle",
-					"protocol": "http",
+					"raw": "https://backend-erp-jmrg.herokuapp.com/api/etiquetas?nombre=Oracle",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"backend-erp-jmrg",
+						"herokuapp",
+						"com"
 					],
-					"port": "8888",
 					"path": [
 						"api",
 						"etiquetas"
@@ -249,7 +250,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8888/api/expertos?nombre=J",
+					"raw": "http://localhost:8888/api/expertos?etiqueta=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -261,8 +262,34 @@
 					],
 					"query": [
 						{
-							"key": "nombre",
-							"value": "J"
+							"key": "etiqueta",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devuelve todos los expertos usando el filtro por etiqueta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api/expertos?etiqueta=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"expertos"
+					],
+					"query": [
+						{
+							"key": "etiqueta",
+							"value": "1"
 						}
 					]
 				}

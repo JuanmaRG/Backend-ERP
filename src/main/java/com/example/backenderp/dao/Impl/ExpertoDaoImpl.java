@@ -2,14 +2,10 @@ package com.example.backenderp.dao.Impl;
 
 import com.example.backenderp.dao.ExpertoDao;
 
-import com.example.backenderp.model.Experto;
-import com.example.backenderp.model.ExpertoPage;
-import com.example.backenderp.model.ExpertoSearchCriteria;
-import com.example.backenderp.model.Tag;
+import com.example.backenderp.model.*;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
@@ -27,47 +23,38 @@ public class ExpertoDaoImpl implements ExpertoDao {
         this.criteriaBuilder = entityManager.getCriteriaBuilder();
     }
 
-    public Page<Experto> findAllWithFilterTag(ExpertoPage expertoPage, ExpertoSearchCriteria expertoSearchCriteria, Tag tag){
-        /*
-        Query query = entityManager.createQuery("select c FROM Experto c JOIN c.tagList u WHERE u.id ="+expertoSearchCriteria.getIdEtiqueta());
-        query.setMaxResults(expertoPage.getPageSize());//size
-        query.setFirstResult(expertoPage.getPageNumber());//pagination
-        //TypedQuery<Experto> typedQuery = (TypedQuery<Experto>) entityManager.createQuery(String.valueOf(query));
-        System.out.println(query.getResultList());
-        //return query.getResultList();
-        Predicate predicate = getPredicate(expertoSearchCriteria, expertoRoot);
-        Pageable pageable = getPageable(expertoPage);
-        long expertosCount = getExpertosCount(predicate);
-        */
+    public Page<Experto> findAllWithFilterEstado(ExpertoPage expertoPage, ExpertoSearchCriteria expertoSearchCriteria, Estado estado) {
+
+        System.out.println( "////////////////////////////////////////" + expertoSearchCriteria.getIdEstado() + "////////////////////////////////////////");
+        List<Experto> expertList= entityManager.createQuery("select e from Experto e where e.estado.id = "+expertoSearchCriteria.getIdEstado()).getResultList();
+        Pageable paging = PageRequest.of(expertoPage.getPageNumber(), expertoPage.getPageSize());
+        int start = Math.min((int)paging.getOffset(), expertList.size());
+        int end = Math.min((start + paging.getPageSize()), expertList.size());
+        Page<Experto> page = new PageImpl<>(expertList.subList(start, end), paging, expertList.size());
+        return page;
+
+    }
+
+    public Page<Experto> findAllWithFilterTag(ExpertoPage expertoPage, ExpertoSearchCriteria expertoSearchCriteria, Tag tag) {
 
 
-
-
-        CriteriaQuery<Experto> criteriaQuery = criteriaBuilder.createQuery(Experto.class);
-        Root<Experto> expertoRoot = criteriaQuery.from(Experto.class);
-        expertoRoot.join("expert_tag",JoinType.INNER);
-        criteriaQuery.select(expertoRoot);
-        Predicate predicate = getPredicate(expertoSearchCriteria, expertoRoot);
-        criteriaQuery.where(predicate);
-        setOrder(expertoPage,criteriaQuery , expertoRoot);
-        TypedQuery<Experto> typedQuery = entityManager.createQuery(criteriaQuery);
-        typedQuery.setFirstResult(expertoPage.getPageNumber() * expertoPage.getPageSize());
-        typedQuery.setMaxResults(expertoPage.getPageSize());
-
-        Pageable pageable = getPageable(expertoPage);
-        long expertosCount = getExpertosCount(predicate);
-
-        return new PageImpl<>(typedQuery.getResultList(),pageable,expertosCount);
+        List<Experto> expertList= entityManager.createQuery("select e from Experto e inner join e.tagList et  where et.id = "+expertoSearchCriteria.getIdEtiqueta()).getResultList();
+        Pageable paging = PageRequest.of(expertoPage.getPageNumber(), expertoPage.getPageSize());
+        int start = Math.min((int)paging.getOffset(), expertList.size());
+        int end = Math.min((start + paging.getPageSize()), expertList.size());
+        Page<Experto> page = new PageImpl<>(expertList.subList(start, end), paging, expertList.size());
+        return page;
 
     }
 
     public Page<Experto> findAllWithFilter(ExpertoPage expertoPage,
-                                           ExpertoSearchCriteria expertoSearchCriteria){
+                                           ExpertoSearchCriteria expertoSearchCriteria) {
+
         CriteriaQuery<Experto> criteriaQuery = criteriaBuilder.createQuery(Experto.class);
         Root<Experto> expertoRoot = criteriaQuery.from(Experto.class);
         Predicate predicate = getPredicate(expertoSearchCriteria, expertoRoot);
         criteriaQuery.where(predicate);
-        setOrder(expertoPage,criteriaQuery , expertoRoot);
+        setOrder(expertoPage, criteriaQuery, expertoRoot);
         TypedQuery<Experto> typedQuery = entityManager.createQuery(criteriaQuery);
         typedQuery.setFirstResult(expertoPage.getPageNumber() * expertoPage.getPageSize());
         typedQuery.setMaxResults(expertoPage.getPageSize());
@@ -75,29 +62,27 @@ public class ExpertoDaoImpl implements ExpertoDao {
         Pageable pageable = getPageable(expertoPage);
         long expertosCount = getExpertosCount(predicate);
 
-        return new PageImpl<>(typedQuery.getResultList(),pageable,expertosCount);
+        return new PageImpl<>(typedQuery.getResultList(), pageable, expertosCount);
     }
-
-
 
 
     private Predicate getPredicate(ExpertoSearchCriteria expertoSearchCriteria,
                                    Root<Experto> expertoRoot) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if(Objects.nonNull(expertoSearchCriteria.getName())){
+        if (Objects.nonNull(expertoSearchCriteria.getName())) {
             predicates.add(
-                    criteriaBuilder.like(expertoRoot.get("nombre"),"%" + expertoSearchCriteria.getName() + "%")
+                    criteriaBuilder.like(expertoRoot.get("nombre"), "%" + expertoSearchCriteria.getName() + "%")
             );
         }
-        if(Objects.nonNull(expertoSearchCriteria.getModalidad())){
+        if (Objects.nonNull(expertoSearchCriteria.getModalidad())) {
             predicates.add(
-                    criteriaBuilder.like(expertoRoot.get("modalidad"),"%" + expertoSearchCriteria.getModalidad() + "%")
+                    criteriaBuilder.like(expertoRoot.get("modalidad"), "%" + expertoSearchCriteria.getModalidad() + "%")
             );
         }
-        if(Objects.nonNull(expertoSearchCriteria.getIdEtiqueta())){
+        if (Objects.nonNull(expertoSearchCriteria.getIdEtiqueta())) {
             predicates.add(
-                    criteriaBuilder.like(expertoRoot.get("id"), expertoSearchCriteria.getIdEtiqueta().toString())
+                    criteriaBuilder.like(expertoRoot.get("idEstado"), "%"+expertoSearchCriteria.getIdEstado()+"%")
             );
         }
 
@@ -105,16 +90,16 @@ public class ExpertoDaoImpl implements ExpertoDao {
     }
 
     private void setOrder(ExpertoPage expertoPage, CriteriaQuery<Experto> criteriaQuery, Root<Experto> expertoRoot) {
-        if(expertoPage.getSortDirection().equals(Sort.Direction.ASC)){
+        if (expertoPage.getSortDirection().equals(Sort.Direction.ASC)) {
             criteriaQuery.orderBy(criteriaBuilder.asc(expertoRoot.get(expertoPage.getSortBy())));
-        }else{
+        } else {
             criteriaQuery.orderBy(criteriaBuilder.desc(expertoRoot.get(expertoPage.getSortBy())));
         }
     }
 
     private Pageable getPageable(ExpertoPage expertoPage) {
         Sort sort = Sort.by(expertoPage.getSortDirection(), expertoPage.getSortBy());
-        return PageRequest.of(expertoPage.getPageNumber(),expertoPage.getPageSize(), sort);
+        return PageRequest.of(expertoPage.getPageNumber(), expertoPage.getPageSize(), sort);
     }
 
     private long getExpertosCount(Predicate predicate) {
@@ -124,5 +109,7 @@ public class ExpertoDaoImpl implements ExpertoDao {
 
         return entityManager.createQuery(countQuery).getSingleResult();
     }
+
+
 
 }
